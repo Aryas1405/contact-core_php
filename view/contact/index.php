@@ -19,8 +19,8 @@
     </tr>
     
     <?php
-$sql = "SELECT `contact`.`name`,`contact`.`email`,`contact`.`mob`,`group`.`name` FROM `contact` 
-        INNER JOIN ``contact`` ON `contact`.`group_id`=`group`.`id`";
+$sql = "SELECT contact.id,contact.name,contact.email,contact.mob,group.name as g_name FROM `contact` 
+        LEFT JOIN `group` ON contact.group_id=group.id";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -39,12 +39,12 @@ if ($result->num_rows > 0) {
               $row["mob"].
              '</td>
              <td>'.
-              $row["group_id"].
+              $row["g_name"].
              '</td>
              
              <td>
             <form action="/view/contact/edit.php" method="POST">
-            <button type="submit" value="'.$row["id"].'" name="contact_id" class="btn btn-warning"style="margin-left:10px;">Edit</button>
+            <button type="submit" value="'.$id.'" name="contact_id" class="btn btn-warning"style="margin-left:10px;">Edit</button>
              </form>
              <form method="post" action="../../connectionQuery.php">
              <button type="submit" value="'.$row["id"].'" name="delete_id" class="btn btn-danger"style="margin-left:10px;">Delete</button>
